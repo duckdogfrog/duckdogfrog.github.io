@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Page Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            transition: background 0.5s ease;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1 id="page-title">Welcome!</h1>
+        <p id="page-content">Click the button below to journey into the unknown.</p>
+        <button onclick="goToRandomPage()">Go to a Random Page</button>
+    </div>
+
+    <script>
+        // Define your pool of "random pages" here
+        const pages = [
+            {
+                title: "The Neon Arcade",
+                content: "You find yourself in a dusty 80s arcade. The sounds of Pac-Man and synthwave music echo around you.",
+                bg: "#1a1a2e"
+            },
+            {
+                title: "Cozy Library",
+                content: "Rain taps gently on the window pane. The smell of old books and hot chamomile tea fills the air.",
+                bg: "#e8dbcd"
+            },
+            {
+                title: "Deep Space Outpost",
+                content: "Stars stretch out infinitely. Earth is just a tiny blue dot in the rearview display of your cockpit.",
+                bg: "#0b0c10"
+            },
+            {
+                title: "The Cyberpunk Alley",
+                content: "Holographic advertisements flicker in the puddles. Neon pink and cyan lights reflect off your leather jacket.",
+                bg: "#252839"
+            },
+            {
+                title: "Sunny Mountain Peak",
+                content: "The air is crisp and cold, but the sun is bright. You've finally made it to the top of the world.",
+                bg: "#e4f1fe"
+            }
+        ];
+
+        let currentPageIndex = -1;
+
+        function goToRandomPage() {
+            let randomIndex;
+            
+            // Prevent picking the exact same page twice in a row
+            do {
+                randomIndex = Math.floor(Math.random() * pages.length);
+            } while (randomIndex === currentPageIndex);
+
+            currentPageIndex = randomIndex;
+            const targetPage = pages[randomIndex];
+
+            // Update the DOM elements seamlessly
+            document.getElementById('page-title').innerText = targetPage.title;
+            document.getElementById('page-content').innerText = targetPage.content;
+            
+            // Optional: Dynamic background color to make the "page change" feel real
+            document.body.style.backgroundColor = targetPage.bg;
+            
+            // Adjust text color based on background brightness for readability
+            if (targetPage.bg === "#1a1a2e" || targetPage.bg === "#0b0c10" || targetPage.bg === "#252839") {
+                document.getElementById('page-title').style.color = "#fff";
+                document.getElementById('page-content').style.color = "#ccc";
+            } else {
+                document.getElementById('page-title').style.color = "#333";
+                document.getElementById('page-content').style.color = "#666";
+            }
+        }
+    </script>
+</body>
+</html>
