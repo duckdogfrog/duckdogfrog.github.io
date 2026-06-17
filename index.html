@@ -44,8 +44,8 @@
 
         button {
             font-family: 'Oswald', sans-serif;
-            background-color: #007bff;
-            color: white;
+            background-color: #ffc30f;
+            color: black;
             border: none;
             padding: 12px 24px;
             font-size: 1rem;
@@ -66,39 +66,49 @@
 <body>
 
     <div class="card">
-        <h1 id="page-title">TEST TITLE</h1>
-        <p id="page-content">RANDOM STAT</p>
-        <button onclick="goToRandomPage()">Go to a Random Page</button>
+        <h1 id="page-title">THE RISE OF GAMBLING/h1>
+        <p id="page-content">Gambling addictions are one of the deadliest addictions in the world and yet gambling and youth gambling is on the rise. Click the SPIN! button to learn why that's a problem.</p>
+        <button onclick="goToRandomPage()">SPIN!</button>
     </div>
 
     <script>
         // Define your pool of "random pages" here
         const pages = [
             {
-                title: "Stat 1",
-                content: "You find yourself in a dusty 80s arcade. The sounds of Pac-Man and synthwave music echo around you.",
-                bg: "#1a1a2e"
+                title: "GAMBLING HAS NEVER BEEN EASIER",
+                content: "With the rise of digital casinos and sports-betting apps, why go to a casino when you can just download an app? The ease-of-access has a major impact **STATS ABOUT RISE OF DIGITAL CASINOS**",
+                bg: "#1a1a2e" // make background have fake betting apps
             },
             {
-                title: "Stat 2",
-                content: "Rain taps gently on the window pane. The smell of old books and hot chamomile tea fills the air.",
+                title: "THE EFFECTS OF GAMBLING",
+                content: "The risks of gambling are not subtle... STATS ABOUT GAMBLING AND SUICIDE RATES AND FINANCIAL EFFECTS",
                 bg: "#e8dbcd"
             },
             {
-                title: "Stat 3",
-                content: "Stars stretch out infinitely. Earth is just a tiny blue dot in the rearview display of your cockpit.",
-                bg: "#0b0c10"
+                title: "THE REALITIES OF GAMBLING",
+                content: "How often do people win, anyways? Is it even worth it to gamble as a means to make money?",
+                bg: "#e8dbcd" // 
             },
             {
-                title: "Stat 4",
-                content: "Holographic advertisements flicker in the puddles. Neon pink and cyan lights reflect off your leather jacket.",
+                title: "GAMBLING ADVERTISEMENTS AND NORMALIZATION",
+                content: "GAMBLING ADS ARE LEGAL IN MANY PLACES OF THE WORLD NOW (make backgrounds have fake gambling ads",
+                bg: "#0b0c10" // make backgrounds have fake gambling ads (for fake betting apps above)
+            },
+            {
+                title: "THE RISE OF YOUTH GAMLBING",
+                content: "STATS ABOUT THE RISE OF YOUTHS GAMBLING AND UNDERAGE ACCESS",
                 bg: "#252839"
             },
             {
-                title: "Stat 5",
+                title: "THE ADDICTIVENESS OF GAMBLING",
+                content: "STATS AND WHY GAMBLING IS ADDICTIVE AND THE ILLUSION OF CONTROL AND GAMBLING COMPANY TACTICS",
+                bg: "#e4f1fe"
+            },
+            {
+                title: "HOW TO HELP",
                 content: "The air is crisp and cold, but the sun is bright. You've finally made it to the top of the world.",
                 bg: "#e4f1fe"
-            }
+            },
         ];
 
         let currentPageIndex = -1;
