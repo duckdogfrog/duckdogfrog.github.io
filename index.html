@@ -127,16 +127,6 @@
             // Update the DOM elements seamlessly
             document.getElementById('page-title').innerText = targetPage.title;
             document.getElementById('page-content').innerText = targetPage.content;
-
-            document.body.style.backgroundColor = targetPage.bg;
-            
-            if (targetPage.bg === "#1a1a2e" || targetPage.bg === "#0b0c10" || targetPage.bg === "#252839") {
-                document.getElementById('page-title').style.color = "#fff";
-                document.getElementById('page-content').style.color = "#ccc";
-            } else {
-                document.getElementById('page-title').style.color = "#333";
-                document.getElementById('page-content').style.color = "#666";
-            }
         }
     </script>
 </body>
