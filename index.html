@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Page Generator</title>
+    <title>MDSB PROJECT</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
             background-color: #fffded;
             transition: background 0.5s ease;
             overflow: hidden;
-            position: relative; /* Essential for containing absolute positioned elements */
+            position: relative;
         }
 
         .card {
@@ -29,40 +29,35 @@
             padding: 30px;
             text-align: center;
             position: relative;
-
-            /* FIXED SIZE SETTINGS */
             width: 90%;
             max-width: 1000px;
-            height: 600px; /* Keeps the container dimensions uniform across frames */
+            height: 600px;
             box-sizing: border-box; 
-            overflow-y: auto; /* Gracefully handles fallback constraints */
-
-            /* Flex alignment keeps elements neat inside fixed height constraints */
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
         }
 
-        h1 {
+        title {
             color: #333;
             margin-top: 0;
             font-size: 2rem;
             text-transform: uppercase;
         }
 
-        p {
+        ct {
             color: #444;
             font-size: 1.1rem;
             line-height: 1.6;
             font-weight: 300;
         }
-
-        /* --- PAGE IMAGE STYLING --- */
+        
         .page-image {
             max-width: 100%;
-            max-height: 150px; /* Limits the image height to prevent pushing content out of the box */
-            display: none; /* Hidden by default; JavaScript shows it if an image exists */
+            max-height: 150px;
+            display: none;
             margin: 15px 0;
             object-fit: contain;
         }
@@ -87,8 +82,8 @@
         button:active {
             transform: scale(0.98);
         }
-        /* --- DYNAMIC AD STYLING --- */
-        .dynamic-ad {
+
+        .fake-ad {
             position: absolute;
             width: 180px;
             background: #fff;
@@ -148,12 +143,10 @@
 
 <div class="card">
         <div style="width: 100%;">
-            <h1 id="page-title">THE RISE OF <span style="color: #ff1100;">PROBLEM GAMBLING</span> AND ONLINE GAMBLING IN CANADA AND THE WORLD
-</h1>
-            
+            <title id="page-title">THE RISE OF <span style="color: #ff1100;">PROBLEM GAMBLING</span> AND ONLINE GAMBLING IN CANADA AND THE WORLD
+</title>
             <img id="page-image" class="page-image" src="" alt="Page Image">
-            
-            <p id="page-content">Gambling addictions are one of the most destructive behavioural disorders globally, yet participation, notably among youth, is steadily rising. Innovations and aggressive promotions in this field have fundamentally changed the issue of problem gambling in the digital age. Click the <span style="color: #ffc30f; font-weight: bold;">SPIN!</span> button to land on a random page of problem gambling facts and stats (and learn why it’s a problem).</p>
+            <ct id="page-content">Gambling addictions are one of the most destructive behavioural disorders globally, yet participation, notably among youth, is steadily rising. Innovations and aggressive promotions in this field have fundamentally changed the issue of problem gambling in the digital age. Click the <span style="color: #ffc30f; font-weight: bold;">SPIN!</span> button to land on a random page of problem gambling facts and stats (and learn why it’s a problem).</ct>
         </div>
         <button onclick="goToRandomPage()">SPIN!</button>
     </div>
@@ -193,8 +186,6 @@ public pressure for the suppression of gambling advertising and promotion, as we
                 image: "images/rog.png"
             }
         ];
-
-        // Premade arrays of text content for diversity when multiples spawn
         const adPool = [
             { tag: "SPORTSBET247", text: "💰 DEPOSIT $5 GET $5000 FREE BONUS CASH! 💰", link: "CLAIM NOW" },
             { tag: "WINNERS-ONLY CASINO*", text: "🔥 ENJOY RISK FREE* BETS! 🔥", link: "BET NOW" },
@@ -202,14 +193,10 @@ public pressure for the suppression of gambling advertising and promotion, as we
             { tag: "GORILLABET", text: "⚽ ARE YOU READY TO WIN? ⚽", link: "PLAY NOW" },
         ];
 
-        // --- FIXED SEQUENCE PLAYLIST LOGIC ---
         let pagePlaylist = [];
 
         function generatePlaylist() {
-            // Find the index of the "HOW TO HELP" page (it's index 6, the last item in our array)
-            const helpIndex = pages.findIndex(page => page.title === "HOW TO HELP");
-            
-            // Gather all other indices [0, 1, 2, 3, 4, 5]
+            const helpIndex = pages.findIndex(page => page.title === "THE SYMPTOMS AND TREATMENT OF PROBLEM GAMBLING"); // make sure this is the last page?
             let otherIndices = [];
             for (let i = 0; i < pages.length; i++) {
                 if (i !== helpIndex) {
@@ -217,48 +204,39 @@ public pressure for the suppression of gambling advertising and promotion, as we
                 }
             }
 
-            // Shuffle the other pages randomly (Fisher-Yates Shuffle)
             for (let i = otherIndices.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [otherIndices[i], otherIndices[j]] = [otherIndices[j], otherIndices[i]];
             }
 
-            // Push the randomized informational pages first, then push the Help page dead last
             pagePlaylist = [...otherIndices, helpIndex];
         }
-
-        // Initialize playlist right away
+        
         generatePlaylist();
 
-        // Clears any previously spawned ads from the body
         function clearOldAds() {
-            const existingAds = document.querySelectorAll('.dynamic-ad');
+            const existingAds = document.querySelectorAll('.fake-ad');
             existingAds.forEach(ad => ad.remove());
         }
 
-        // Spawns between 1 and 5 ads dynamically across coordinates
         function spawnAds(type) {
             if (type === "none") return;
 
             const pool = adPool;
-            const numAdsToSpawn = Math.floor(Math.random() * 8) + 1; // 1 to 5 random ads
+            const numAdsToSpawn = Math.floor(Math.random() * 8) + 1;
 
             for (let i = 0; i < numAdsToSpawn; i++) {
-                // Pick a random data template from the pool
                 const adData = pool[Math.floor(Math.random() * pool.length)];
 
-                // Create the container element
                 const adElement = document.createElement('div');
-                adElement.className = 'dynamic-ad';
+                adElement.className = 'fake-ad';
 
-                // Generate random coordinates (keeping away from edge cutoffs)
-                const randomTop = Math.floor(Math.random() * 70) + 5;  // 5% to 75% depth
-                const randomLeft = Math.floor(Math.random() * 75) + 5; // 5% to 80% width
+                const randomTop = Math.floor(Math.random() * 70) + 5; // cutoff
+                const randomLeft = Math.floor(Math.random() * 75) + 5;
 
                 adElement.style.top = `${randomTop}%`;
                 adElement.style.left = `${randomLeft}%`;
 
-                // Build internal template including the close functionality
                 adElement.innerHTML = `
                     <button class="ad-close-btn" onclick="this.parentElement.remove()">X</button>
                     <span class="ad-tag">${adData.tag}</span>
@@ -266,36 +244,30 @@ public pressure for the suppression of gambling advertising and promotion, as we
                     <div class="ad-link">${adData.link}</div>
                 `;
 
-                // Inject element directly to body
                 document.body.appendChild(adElement);
             }
         }
 
         function goToRandomPage() {
-// If the current playlist cycle is finished, rebuild a new order
             if (pagePlaylist.length === 0) {
                 generatePlaylist();
             }
-
-            // Pull the next index from the front of the queue (.shift removes item from index 0)
+            
             const targetPageIndex = pagePlaylist.shift();
             const targetPage = pages[targetPageIndex];
 
-            // Update Main Card Text
             document.getElementById('page-title').innerText = targetPage.title;
             document.getElementById('page-content').innerHTML = targetPage.content;
 
-            // --- NEW IMAGE HANDLING LOGIC ---
             const imageElement = document.getElementById('page-image');
             if (targetPage.image) {
                 imageElement.src = targetPage.image;
-                imageElement.style.display = 'inline-block'; // Show the image if URL exists
+                imageElement.style.display = 'inline-block';
             } else {
-                imageElement.style.display = 'none'; // Hide if no image URL
-                imageElement.src = ""; // Clear src to prevent weird browser behavior
+                imageElement.style.display = 'none';
+                imageElement.src = "";
             }
 
-            // Clear old random element generations and trigger new instances
             clearOldAds();
             spawnAds(targetPage.adType);
         }
