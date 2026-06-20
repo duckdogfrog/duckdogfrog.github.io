@@ -244,18 +244,33 @@
             { tag: "BET TRACKER", text: "📱 ODDS INSIDER: Premium subscription unlocked for 10m.", link: "ENTER" }
         ];
 
-        // --- NEW CYCLE TRACKING SYSTEM ---
-        let unvisitedIndices = [];
+        // --- FIXED SEQUENCE PLAYLIST LOGIC ---
+        let pagePlaylist = [];
 
-        function initializePool() {
-            // Fills the pool with all available page indices: [0, 1, 2, 3, 4, 5, 6]
-            unvisitedIndices = Array.from({ length: pages.length }, (_, i) => i);
+        function generatePlaylist() {
+            // Find the index of the "HOW TO HELP" page (it's index 6, the last item in our array)
+            const helpIndex = pages.findIndex(page => page.title === "HOW TO HELP");
+            
+            // Gather all other indices [0, 1, 2, 3, 4, 5]
+            let otherIndices = [];
+            for (let i = 0; i < pages.length; i++) {
+                if (i !== helpIndex) {
+                    otherIndices.push(i);
+                }
+            }
+
+            // Shuffle the other pages randomly (Fisher-Yates Shuffle)
+            for (let i = otherIndices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [otherIndices[i], otherIndices[j]] = [otherIndices[j], otherIndices[i]];
+            }
+
+            // Push the randomized informational pages first, then push the Help page dead last
+            pagePlaylist = [...otherIndices, helpIndex];
         }
 
-        // Initialize the pool right when the page loads
-        initializePool();
-
-        let currentPageIndex = -1;
+        // Initialize playlist right away
+        generatePlaylist();
 
         // Clears any previously spawned ads from the body
         function clearOldAds() {
@@ -299,16 +314,13 @@
         }
 
         function goToRandomPage() {
-            // If we've run out of unvisited pages, reset the pool completely
-            if (unvisitedIndices.length === 0) {
-                initializePool();
+// If the current playlist cycle is finished, rebuild a new order
+            if (pagePlaylist.length === 0) {
+                generatePlaylist();
             }
 
-            // Pick a random position inside our remaining tracking list
-            const poolPosition = Math.floor(Math.random() * unvisitedIndices.length);
-            
-            // Extract the actual page index and remove it from the pool (.splice changes the array in place)
-            const targetPageIndex = unvisitedIndices.splice(poolPosition, 1)[0];
+            // Pull the next index from the front of the queue (.shift removes item from index 0)
+            const targetPageIndex = pagePlaylist.shift();
             const targetPage = pages[targetPageIndex];
 
             // Update Main Card Text
