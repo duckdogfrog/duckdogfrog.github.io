@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MDSB PROJECT</title>
+    <title>Random Page Generator</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +29,7 @@
             padding: 30px;
             text-align: center;
             position: relative;
+
             width: 90%;
             max-width: 1000px;
             height: 600px;
@@ -47,17 +48,17 @@
             text-transform: uppercase;
         }
 
-        ct {
+        p {
             color: #444;
             font-size: 1.1rem;
             line-height: 1.6;
             font-weight: 300;
         }
-        
+
         .page-image {
             max-width: 100%;
             max-height: 150px;
-            display: none;
+            display: none; 
             margin: 15px 0;
             object-fit: contain;
         }
@@ -83,7 +84,7 @@
             transform: scale(0.98);
         }
 
-        .fake-ad {
+        .dynamic-ad {
             position: absolute;
             width: 180px;
             background: #fff;
@@ -143,9 +144,12 @@
 
 <div class="card">
         <div style="width: 100%;">
-            <h1 id="page-title">THE RISE OF <span style="color: #ff1100;">PROBLEM GAMBLING</span> AND ONLINE GAMBLING IN CANADA AND THE WORLD  test</h1>
+            <h1 id="page-title">THE RISE OF <span style="color: #ff1100;">PROBLEM GAMBLING</span> AND ONLINE GAMBLING IN CANADA AND THE WORLD
+</h1>
+            
             <img id="page-image" class="page-image" src="" alt="Page Image">
-            <ct id="page-content">Gambling addictions are one of the most destructive behavioural disorders globally, yet participation, notably among youth, is steadily rising. Innovations and aggressive promotions in this field have fundamentally changed the issue of problem gambling in the digital age. Click the <span style="color: #ffc30f; font-weight: bold;">SPIN!</span> button to land on a random page of problem gambling facts and stats (and learn why it’s a problem).</ct>
+            
+            <p id="page-content">Gambling addictions are one of the most destructive behavioural disorders globally, yet participation, notably among youth, is steadily rising. Innovations and aggressive promotions in this field have fundamentally changed the issue of problem gambling in the digital age. Click the <span style="color: #ffc30f; font-weight: bold;">SPIN!</span> button to land on a random page of problem gambling facts and stats (and learn why it’s a problem).</p>
         </div>
         <button onclick="goToRandomPage()">SPIN!</button>
     </div>
@@ -185,6 +189,7 @@ public pressure for the suppression of gambling advertising and promotion, as we
                 image: "images/rog.png"
             }
         ];
+
         const adPool = [
             { tag: "SPORTSBET247", text: "💰 DEPOSIT $5 GET $5000 FREE BONUS CASH! 💰", link: "CLAIM NOW" },
             { tag: "WINNERS-ONLY CASINO*", text: "🔥 ENJOY RISK FREE* BETS! 🔥", link: "BET NOW" },
@@ -195,14 +200,15 @@ public pressure for the suppression of gambling advertising and promotion, as we
         let pagePlaylist = [];
 
         function generatePlaylist() {
-            const helpIndex = pages.findIndex(page => page.title === "THE SYMPTOMS AND TREATMENT OF PROBLEM GAMBLING"); // make sure this is the last page?
+            const helpIndex = pages.findIndex(page => page.title === "THE SYMPTOMS AND TREATMENT OF PROBLEM GAMBLING"); // make sure it is the last page
+            
             let otherIndices = [];
             for (let i = 0; i < pages.length; i++) {
                 if (i !== helpIndex) {
                     otherIndices.push(i);
                 }
             }
-
+            
             for (let i = otherIndices.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [otherIndices[i], otherIndices[j]] = [otherIndices[j], otherIndices[i]];
@@ -210,11 +216,11 @@ public pressure for the suppression of gambling advertising and promotion, as we
 
             pagePlaylist = [...otherIndices, helpIndex];
         }
-        
+
         generatePlaylist();
 
         function clearOldAds() {
-            const existingAds = document.querySelectorAll('.fake-ad');
+            const existingAds = document.querySelectorAll('.dynamic-ad');
             existingAds.forEach(ad => ad.remove());
         }
 
@@ -228,10 +234,10 @@ public pressure for the suppression of gambling advertising and promotion, as we
                 const adData = pool[Math.floor(Math.random() * pool.length)];
 
                 const adElement = document.createElement('div');
-                adElement.className = 'fake-ad';
+                adElement.className = 'dynamic-ad';
 
-                const randomTop = Math.floor(Math.random() * 70) + 5; // cutoff
-                const randomLeft = Math.floor(Math.random() * 75) + 5;
+                const randomTop = Math.floor(Math.random() * 70) + 5; 
+                const randomLeft = Math.floor(Math.random() * 75) + 5; // cutoff
 
                 adElement.style.top = `${randomTop}%`;
                 adElement.style.left = `${randomLeft}%`;
@@ -251,7 +257,7 @@ public pressure for the suppression of gambling advertising and promotion, as we
             if (pagePlaylist.length === 0) {
                 generatePlaylist();
             }
-            
+
             const targetPageIndex = pagePlaylist.shift();
             const targetPage = pages[targetPageIndex];
 
@@ -264,7 +270,7 @@ public pressure for the suppression of gambling advertising and promotion, as we
                 imageElement.style.display = 'inline-block';
             } else {
                 imageElement.style.display = 'none';
-                imageElement.src = "";
+                imageElement.src = ""; 
             }
 
             clearOldAds();
