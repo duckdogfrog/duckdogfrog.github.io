@@ -21,6 +21,7 @@
             background-color: #f0f2f5;
             transition: background 0.5s ease;
             overflow: hidden;
+            position: relative; /* Essential for containing absolute positioned elements */
         }
 
         .card {
@@ -29,9 +30,10 @@
             text-align: center;
             max-width: 500px;
             width: 90%;
+            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             position: relative;
-            z-index: 10;
+            z-index: 100; /* Keeps the control card above random ads */
         }
 
         h1 {
@@ -58,11 +60,11 @@
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
+            border-radius: 6px;
             background-size: 400% 400%;
             transition: transform 0.1s, box-shadow 0.2s;
         }
 
-        /* Continuous color shifting on hover */
         button:hover {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
@@ -81,26 +83,42 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- FAKE ADS & APP WRAPPERS --- */
-        .ad-banner {
-            display: none;
+        /* --- DYNAMIC AD STYLING --- */
+        .dynamic-ad {
             position: absolute;
-            width: 160px;
+            width: 180px;
             background: #fff;
             border: 3px dashed #ff1100;
             padding: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-            z-index: 5;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            z-index: 50; /* Sits below the main card, but covers layout spaces */
+            text-align: center;
+            animation: flashBorder 1s steps(2, start) infinite;
+        }
+
+        @keyframes flashBorder {
+            to { border-style: dotted; border-color: #ffc30f; }
+        }
+
+        .ad-close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: black;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 20px;
+            cursor: pointer;
             text-align: center;
         }
 
-        #ad-left {
-            left: 40px;
-        }
-
-        #ad-right {
-            right: 40px;
-            top: 25%;
+        .ad-close-btn:hover {
+            background: #ff1100;
         }
 
         .ad-tag {
@@ -133,22 +151,10 @@
 </head>
 <body>
 
-    <div id="ad-left" class="ad-banner">
-        <span class="ad-tag" id="tag-l">SPONSOR</span>
-        <p class="ad-text" id="text-l">🎰 DEPOSIT $5 GET $500 FREE BONUS CASH! 🎰</p>
-        <div class="ad-link">BET NOW</div>
-    </div>
-
     <div class="card">
         <h1 id="page-title">THE RISE OF GAMBLING</h1>
         <p id="page-content">Gambling addictions are one of the deadliest addictions in the world and yet gambling and youth gambling is on the rise. Click the SPIN! button to learn why that's a problem.</p>
         <button onclick="goToRandomPage()">SPIN!</button>
-    </div>
-
-    <div id="ad-right" class="ad-banner">
-        <span class="ad-tag" id="tag-r">RISK FREE*</span>
-        <p class="ad-text" id="text-r">⚡ LOCK IN YOUR SPREAD. IN-PLAY ODDS LIVE! ⚡</p>
-        <div class="ad-link">CLAIM BET</div>
     </div>
 
     <script>
@@ -157,7 +163,7 @@
                 title: "GAMBLING HAS NEVER BEEN EASIER",
                 content: "With the rise of digital casinos and sports-betting apps, access is available 24/7. Globally, online gambling revenues have surged past $90 billion annually. Friction points like going to a venue or handling physical cash are completely gone—allowing individuals to lose thousands of dollars instantly and silently from their smartphones.",
                 bg: "#1a1a2e",
-                adType: "apps" // Triggers fake app indicators
+                adType: "apps"
             },
             {
                 title: "THE EFFECTS OF GAMBLING",
@@ -175,7 +181,7 @@
                 title: "GAMBLING ADVERTISEMENTS AND NORMALIZATION",
                 content: "Regulatory shifts have allowed betting ads to completely saturate mainstream media. Fans and children cannot watch a game without seeing odds crawl across the screen, logos stamped on team jerseys, or celebrity endorsements painting predatory financial mechanics as a casual, glamorous lifestyle hobby.",
                 bg: "#0b0c10",
-                adType: "ads" // Triggers intense fake spam ads
+                adType: "ads"
             },
             {
                 title: "THE RISE OF YOUTH GAMBLING",
@@ -197,7 +203,66 @@
             }
         ];
 
+        // Premade arrays of text content for diversity when multiples spawn
+        const adPool = [
+            { tag: "SPONSOR", text: "🎰 DEPOSIT $5 GET $500 FREE BONUS CASH! 🎰", link: "BET NOW" },
+            { tag: "RISK FREE*", text: "⚡ LOCK IN YOUR SPREAD. IN-PLAY ODDS LIVE! ⚡", link: "CLAIM BET" },
+            { tag: "PROMO", text: "🔥 CASINO MANIA: UNLIMITED FREE SPINS THIS HOUR! 🔥", link: "PLAY NOW" },
+            { tag: "MATCHED", text: "📈 WE MATCH YOUR FIRST DEPOSIT 200% DOWN! 📈", link: "DEPOSIT" },
+            { tag: "LIVE ODDS", text: "⚽ OVER/UNDER LIVE ODDS UPDATING BY THE SECOND! ⚽", link: "WAGER" }
+        ];
+
+        const appPool = [
+            { tag: "INSTALLED", text: "📱 SPIN CASINO APP: Open to instantly place live bets.", link: "OPEN" },
+            { tag: "TOP RATED", text: "📱 SPORTSBOOK GO: You left 3 bets pending in your cart!", link: "VIEW" },
+            { tag: "ALERT", text: "📱 CHIPS DAILY: Don't miss your hourly streak modifier prize!", link: "CLAIM" },
+            { tag: "BET TRACKER", text: "📱 ODDS INSIDER: Premium subscription unlocked for 10m.", link: "ENTER" }
+        ];
+
         let currentPageIndex = -1;
+
+        // Clears any previously spawned ads from the body
+        function clearOldAds() {
+            const existingAds = document.querySelectorAll('.dynamic-ad');
+            existingAds.forEach(ad => ad.remove());
+        }
+
+        // Spawns between 1 and 5 ads dynamically across coordinates
+        function spawnAds(type) {
+            if (type === "none") return;
+
+            const pool = (type === "apps") ? appPool : adPool;
+            const numAdsToSpawn = Math.floor(Math.random() * 5) + 1; // 1 to 5 random ads
+
+            for (let i = 0; i < numAdsToSpawn; i++) {
+                // Pick a random data template from the pool
+                const adData = pool[Math.floor(Math.random() * pool.length)];
+
+                // Create the container element
+                const adElement = document.createElement('div');
+                adElement.className = 'dynamic-ad';
+
+                // Generate random coordinates (keeping away from edge cutoffs)
+                const randomTop = Math.floor(Math.random() * 70) + 5;  // 5% to 75% depth
+                const randomLeft = Math.floor(Math.random() * 75) + 5; // 5% to 80% width
+                const randomRotation = Math.floor(Math.random() * 16) - 8; // -8deg to +8deg skew
+
+                adElement.style.top = `${randomTop}%`;
+                adElement.style.left = `${randomLeft}%`;
+                adElement.style.transform = `rotate(${randomRotation}deg)`;
+
+                // Build internal template including the close functionality
+                adElement.innerHTML = `
+                    <button class="ad-close-btn" onclick="this.parentElement.remove()">×</button>
+                    <span class="ad-tag">${adData.tag}</span>
+                    <p class="ad-text">${adData.text}</p>
+                    <div class="ad-link">${adData.link}</div>
+                `;
+
+                // Inject element directly to body
+                document.body.appendChild(adElement);
+            }
+        }
 
         function goToRandomPage() {
             let randomIndex;
@@ -209,14 +274,14 @@
             currentPageIndex = randomIndex;
             const targetPage = pages[randomIndex];
 
-            // Update Text content
+            // Update Main Card Text
             document.getElementById('page-title').innerText = targetPage.title;
             document.getElementById('page-content').innerText = targetPage.content;
             
-            // Seamlessly shift background color
+            // Shift color spectrum background 
             document.body.style.backgroundColor = targetPage.bg;
 
-            // Dynamically manage Text Readability based on background darkness
+            // Handle Text Readability contrast
             const textColors = (targetPage.bg === "#1a1a2e" || targetPage.bg === "#0b0c10" || targetPage.bg === "#252839") 
                 ? { title: "#ffffff", content: "#cccccc" } 
                 : { title: "#333333", content: "#444444" };
@@ -224,31 +289,9 @@
             document.getElementById('page-title').style.color = textColors.title;
             document.getElementById('page-content').style.color = textColors.content;
 
-            // Handle fake marketing layouts
-            const leftAd = document.getElementById('ad-left');
-            const rightAd = document.getElementById('ad-right');
-
-            if (targetPage.adType === "apps") {
-                // Style wrappers to look like smartphone apps
-                document.getElementById('tag-l').innerText = "INSTALLED";
-                document.getElementById('tag-r').innerText = "TOP RATED";
-                document.getElementById('text-l').innerText = "📱 SPIN CASINO APP: Open to instantly place live bets.";
-                document.getElementById('text-r').innerText = "📱 SPORTSBOOK GO: You left 3 bets pending in your cart!";
-                leftAd.style.display = 'block';
-                rightAd.style.display = 'block';
-            } else if (targetPage.adType === "ads") {
-                // Style wrappers to look like loud, predatory advertisements
-                document.getElementById('tag-l').innerText = "SPONSOR";
-                document.getElementById('tag-r').innerText = "RISK FREE*";
-                document.getElementById('text-l').innerText = "🎰 DEPOSIT $5 GET $500 FREE BONUS CASH! 🎰";
-                document.getElementById('text-r').innerText = "⚡ LOCK IN YOUR SPREAD. IN-PLAY ODDS LIVE! ⚡";
-                leftAd.style.display = 'block';
-                rightAd.style.display = 'block';
-            } else {
-                // Hide banners entirely on alternative text views
-                leftAd.style.display = 'none';
-                rightAd.style.display = 'none';
-            }
+            // Clear old random element generations and trigger new instances
+            clearOldAds();
+            spawnAds(targetPage.adType);
         }
     </script>
 </body>
