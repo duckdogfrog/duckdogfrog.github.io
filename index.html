@@ -156,7 +156,7 @@
 <body>
 
     <div class="card">
-        <h1 id="page-title">18</h1>
+        <h1 id="page-title">19</h1>
         <p id="page-content">Gambling addictions are one of the deadliest addictions in the world and yet gambling and youth gambling is on the rise. Click the SPIN! button to learn why that's a problem.</p>
         <button onclick="goToRandomPage()">SPIN!</button>
     </div>
@@ -223,6 +223,17 @@
             { tag: "BET TRACKER", text: "📱 ODDS INSIDER: Premium subscription unlocked for 10m.", link: "ENTER" }
         ];
 
+        // --- NEW CYCLE TRACKING SYSTEM ---
+        let unvisitedIndices = [];
+
+        function initializePool() {
+            // Fills the pool with all available page indices: [0, 1, 2, 3, 4, 5, 6]
+            unvisitedIndices = Array.from({ length: pages.length }, (_, i) => i);
+        }
+
+        // Initialize the pool right when the page loads
+        initializePool();
+
         let currentPageIndex = -1;
 
         // Clears any previously spawned ads from the body
@@ -267,14 +278,17 @@
         }
 
         function goToRandomPage() {
-            let randomIndex;
-            
-            do {
-                randomIndex = Math.floor(Math.random() * pages.length);
-            } while (randomIndex === currentPageIndex);
+            // If we've run out of unvisited pages, reset the pool completely
+            if (unvisitedIndices.length === 0) {
+                initializePool();
+            }
 
-            currentPageIndex = randomIndex;
-            const targetPage = pages[randomIndex];
+            // Pick a random position inside our remaining tracking list
+            const poolPosition = Math.floor(Math.random() * unvisitedIndices.length);
+            
+            // Extract the actual page index and remove it from the pool (.splice changes the array in place)
+            const targetPageIndex = unvisitedIndices.splice(poolPosition, 1)[0];
+            const targetPage = pages[targetPageIndex];
 
             // Update Main Card Text
             document.getElementById('page-title').innerText = targetPage.title;
