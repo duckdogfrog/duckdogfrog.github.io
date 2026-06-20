@@ -315,6 +315,17 @@
             document.getElementById('page-title').innerText = targetPage.title;
             document.getElementById('page-content').innerHTML = targetPage.content;
 
+            // --- NEW IMAGE HANDLING LOGIC ---
+            const imageElement = document.getElementById('page-image');
+            if (targetPage.image) {
+                imageElement.src = targetPage.image;
+                imageElement.style.display = 'inline-block'; // Show the image if URL exists
+            } else {
+                imageElement.style.display = 'none'; // Hide if no image URL
+                imageElement.src = ""; // Clear src to prevent weird browser behavior
+            }
+            // ---------------------------------
+            
             // Handle Text Readability contrast
             const textColors = (targetPage.bg === "#1a1a2e" || targetPage.bg === "#0b0c10" || targetPage.bg === "#252839") 
                 ? { title: "#ffffff", content: "#cccccc" } 
