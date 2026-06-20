@@ -245,11 +245,9 @@
                 // Generate random coordinates (keeping away from edge cutoffs)
                 const randomTop = Math.floor(Math.random() * 70) + 5;  // 5% to 75% depth
                 const randomLeft = Math.floor(Math.random() * 75) + 5; // 5% to 80% width
-                const randomRotation = Math.floor(Math.random() * 16) - 8; // -8deg to +8deg skew
 
                 adElement.style.top = `${randomTop}%`;
                 adElement.style.left = `${randomLeft}%`;
-                adElement.style.transform = `rotate(${randomRotation}deg)`;
 
                 // Build internal template including the close functionality
                 adElement.innerHTML = `
