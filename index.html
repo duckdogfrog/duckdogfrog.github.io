@@ -279,6 +279,12 @@
             // Update Main Card Text
             document.getElementById('page-title').innerText = targetPage.title;
             document.getElementById('page-content').innerHTML = targetPage.content;
+
+            // Handle Text Readability contrast
+            const textColors = (targetPage.bg === "#1a1a2e" || targetPage.bg === "#0b0c10" || targetPage.bg === "#252839") 
+                ? { title: "#ffffff", content: "#cccccc" } 
+                : { title: "#333333", content: "#444444" };
+
             document.getElementById('page-title').style.color = textColors.title;
             document.getElementById('page-content').style.color = textColors.content;
 
