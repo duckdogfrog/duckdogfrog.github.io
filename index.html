@@ -214,11 +214,10 @@ public pressure for the suppression of gambling advertising and promotion, as we
 
         // Premade arrays of text content for diversity when multiples spawn
         const adPool = [
-            { tag: "SPONSOR", text: "🎰 DEPOSIT $5 GET $500 FREE BONUS CASH! 🎰", link: "BET NOW" },
-            { tag: "RISK FREE*", text: "⚡ LOCK IN YOUR SPREAD. IN-PLAY ODDS LIVE! ⚡", link: "CLAIM BET" },
-            { tag: "PROMO", text: "🔥 CASINO MANIA: UNLIMITED FREE SPINS THIS HOUR! 🔥", link: "PLAY NOW" },
-            { tag: "MATCHED", text: "📈 WE MATCH YOUR FIRST DEPOSIT 200% DOWN! 📈", link: "DEPOSIT" },
-            { tag: "LIVE ODDS", text: "⚽ OVER/UNDER LIVE ODDS UPDATING BY THE SECOND! ⚽", link: "WAGER" }
+            { tag: "SPORTSBET247", text: "💰 DEPOSIT $5 GET $5000 FREE BONUS CASH! 💰", link: "CLAIM NOW" },
+            { tag: "WINNERS-ONLY CASINO*", text: "🔥 ENJOY RISK FREE* BETS! 🔥", link: "BET NOW" },
+            { tag: "ALWAYS-WIN CASINO", text: "🔥 BEGIN YOUR LIFE OF LUXURY 🔥", link: "PLAY NOW" },
+            { tag: "GORILLABET", text: "⚽ ARE YOU READY TO WIN? ⚽", link: "PLAY NOW" },
         ];
 
         // --- FIXED SEQUENCE PLAYLIST LOGIC ---
@@ -260,7 +259,7 @@ public pressure for the suppression of gambling advertising and promotion, as we
             if (type === "none") return;
 
             const pool = adPool;
-            const numAdsToSpawn = Math.floor(Math.random() * 5) + 1; // 1 to 5 random ads
+            const numAdsToSpawn = Math.floor(Math.random() * 8) + 1; // 1 to 5 random ads
 
             for (let i = 0; i < numAdsToSpawn; i++) {
                 // Pick a random data template from the pool
