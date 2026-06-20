@@ -29,7 +29,6 @@
             text-align: center;
             max-width: 500px;
             width: 90%;
-            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             position: relative;
             z-index: 10;
@@ -59,7 +58,6 @@
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
-            border-radius: 6px;
             background-size: 400% 400%;
             transition: transform 0.1s, box-shadow 0.2s;
         }
@@ -98,18 +96,11 @@
 
         #ad-left {
             left: 40px;
-            top: 20%;
-            animation: flashBorder 1s steps(2, start) infinite;
         }
 
         #ad-right {
             right: 40px;
             top: 25%;
-            animation: flashBorder 1s steps(2, start) infinite;
-        }
-
-        @keyframes flashBorder {
-            to { border-style: dotted; border-color: #ffc30f; }
         }
 
         .ad-tag {
