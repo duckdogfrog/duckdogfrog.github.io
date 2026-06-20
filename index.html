@@ -30,7 +30,6 @@
             text-align: center;
             max-width: 500px;
             width: 90%;
-            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             position: relative;
         }
@@ -59,7 +58,6 @@
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
-            border-radius: 6px;
             background-size: 400% 400%;
             transition: transform 0.1s, box-shadow 0.2s;
         }
@@ -141,7 +139,6 @@
             font-size: 0.85rem;
             font-weight: bold;
             padding: 6px;
-            border: 1px solid #000;
             cursor: pointer;
         }
     </style>
@@ -248,7 +245,7 @@
 
                 // Build internal template including the close functionality
                 adElement.innerHTML = `
-                    <button class="ad-close-btn" onclick="this.parentElement.remove()">×</button>
+                    <button class="ad-close-btn" onclick="this.parentElement.remove()">X</button>
                     <span class="ad-tag">${adData.tag}</span>
                     <p class="ad-text">${adData.text}</p>
                     <div class="ad-link">${adData.link}</div>
