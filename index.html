@@ -313,15 +313,6 @@ public pressure for the suppression of gambling advertising and promotion, as we
                 imageElement.style.display = 'none'; // Hide if no image URL
                 imageElement.src = ""; // Clear src to prevent weird browser behavior
             }
-            // ---------------------------------
-            
-            // Handle Text Readability contrast
-            const textColors = (targetPage.bg === "#1a1a2e" || targetPage.bg === "#0b0c10" || targetPage.bg === "#252839") 
-                ? { title: "#ffffff", content: "#cccccc" } 
-                : { title: "#333333", content: "#444444" };
-
-            document.getElementById('page-title').style.color = textColors.title;
-            document.getElementById('page-content').style.color = textColors.content;
 
             // Clear old random element generations and trigger new instances
             clearOldAds();
