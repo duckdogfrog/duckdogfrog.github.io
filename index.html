@@ -156,7 +156,7 @@
 <body>
 
     <div class="card">
-        <h1 id="page-title">17</h1>
+        <h1 id="page-title">18</h1>
         <p id="page-content">Gambling addictions are one of the deadliest addictions in the world and yet gambling and youth gambling is on the rise. Click the SPIN! button to learn why that's a problem.</p>
         <button onclick="goToRandomPage()">SPIN!</button>
     </div>
@@ -279,15 +279,6 @@
             // Update Main Card Text
             document.getElementById('page-title').innerText = targetPage.title;
             document.getElementById('page-content').innerHTML = targetPage.content;
-            
-            // Shift color spectrum background 
-            document.body.style.backgroundColor = targetPage.bg;
-
-            // Handle Text Readability contrast
-            const textColors = (targetPage.bg === "#1a1a2e" || targetPage.bg === "#0b0c10" || targetPage.bg === "#252839") 
-                ? { title: "#ffffff", content: "#cccccc" } 
-                : { title: "#333333", content: "#444444" };
-                
             document.getElementById('page-title').style.color = textColors.title;
             document.getElementById('page-content').style.color = textColors.content;
 
