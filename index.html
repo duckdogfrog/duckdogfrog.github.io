@@ -22,6 +22,7 @@
             transition: background 0.5s ease;
             overflow: hidden;
             position: relative;
+            <audio id="spin-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
         }
 
         .card {
@@ -144,11 +145,8 @@
 
 <div class="card">
         <div style="width: 100%;">
-            <h1 id="page-title">THE RISE OF <span style="color: #ff1100;">PROBLEM GAMBLING</span> AND ONLINE GAMBLING IN CANADA AND THE WORLD
-</h1>
-            
+            <h1 id="page-title">THE RISE OF <span style="color: #ff1100;">PROBLEM GAMBLING</span> AND ONLINE GAMBLING IN CANADA AND THE WORLD</h1>
             <img id="page-image" class="page-image" src="" alt="Page Image">
-            
             <p id="page-content">Gambling addictions are one of the most destructive behavioural disorders globally, yet participation, notably among youth, is steadily rising. Innovations and aggressive promotions in this field have fundamentally changed the issue of problem gambling in the digital age. Click the <span style="color: #ffc30f; font-weight: bold;">SPIN!</span> button to land on a random page of problem gambling facts and stats (and learn why it’s a problem).</p>
         </div>
         <button onclick="goToRandomPage()">SPIN!</button>
@@ -254,6 +252,12 @@ public pressure for the suppression of gambling advertising and promotion, as we
         }
 
         function goToRandomPage() {
+            const sound = document.getElementById('spin-sound');
+            if (sound) {
+                sound.currentTime = 0; // Rewind to the start so rapid clicks overlap/re-trigger
+                sound.play().catch(error => console.log("Audio playback prevented until user interaction:", error));
+            }
+            
             if (pagePlaylist.length === 0) {
                 generatePlaylist();
             }
