@@ -268,7 +268,7 @@
 
             // Update Main Card Text
             document.getElementById('page-title').innerText = targetPage.title;
-            document.getElementById('page-content').innerText = targetPage.content;
+            document.getElementById('page-content').innerHTML = targetPage.content;
             
             // Shift color spectrum background 
             document.body.style.backgroundColor = targetPage.bg;
