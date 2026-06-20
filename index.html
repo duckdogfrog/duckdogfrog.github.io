@@ -58,6 +58,15 @@
             font-weight: 300;
         }
 
+        /* --- PAGE IMAGE STYLING --- */
+        .page-image {
+            max-width: 100%;
+            max-height: 150px; /* Limits the image height to prevent pushing content out of the box */
+            display: none; /* Hidden by default; JavaScript shows it if an image exists */
+            margin: 15px 0;
+            object-fit: contain;
+        }
+
         button {
             font-family: 'Oswald', sans-serif;
             background-color: #ffc30f;
@@ -156,7 +165,7 @@
 <body>
 
     <div class="card">
-        <h1 id="page-title">20</h1>
+        <h1 id="page-title">21</h1>
         <p id="page-content">Gambling addictions are one of the deadliest addictions in the world and yet gambling and youth gambling is on the rise. Click the SPIN! button to learn why that's a problem.</p>
         <button onclick="goToRandomPage()">SPIN!</button>
     </div>
@@ -167,43 +176,50 @@
                 title: "GAMBLING HAS NEVER BEEN EASIER",
                 content: `With the rise of <span style="color: #00ffcc; font-weight: bold;">digital casinos</span> and sports-betting apps, access is available 24/7. Globally, online gambling revenues have surged past <span style="color: #ffc30f; font-weight: bold;">$90 billion annually</span>. Friction points like venues or physical cash are gone—allowing individuals to lose money instantly and silently.`,
                 bg: "#1a1a2e",
-                adType: "apps"
+                adType: "apps",
+                image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Smart_Phone_with_Abstract_Glow.jpg" // Placeholder for mobile gambling app
             },
             {
                 title: "THE EFFECTS OF GAMBLING",
-                content: "The risks of gambling are devastating. Clinicians report that gambling disorder carries one of the highest suicide attempt rates of any addictive disorder. Because there are no visible physical symptoms, it remains a hidden crisis until severe financial ruin, legal trouble, or total psychological collapse occurs.",
+                content: `The risks of gambling are devastating. Clinicians report that gambling disorder carries one of the <span style="color: #ff1100; font-weight: bold;">highest suicide attempt rates</span> of any addictive disorder. Because there are no visible physical symptoms, it remains a hidden crisis until severe financial ruin, legal trouble, or total psychological collapse occurs.`,
                 bg: "#e8dbcd",
-                adType: "none"
+                adType: "none",
+                image: "https://upload.wikimedia.org/wikipedia/commons/2/23/Anxious_man_shadow.jpg" // Placeholder for stress/anxiety
             },
             {
                 title: "THE REALITIES OF GAMBLING",
-                content: "The house always wins. Casino games are mathematically engineered to ensure the operator retains an edge. Even in sports betting, platforms adjust lines dynamically to guarantee a profit margin. Treating gambling as a consistent revenue stream is a statistical impossibility; it functions exclusively as an entertainment expense.",
+                content: `The <span style="color: #ff1100; font-weight: bold;">house always wins</span>. Casino games are mathematically engineered to ensure the operator retains an edge. Even in sports betting, platforms adjust lines dynamically to guarantee a profit margin. Treating gambling as a consistent revenue stream is a <span style="color: #ff1100; font-weight: bold;">statistical impossibility</span>; it functions exclusively as an entertainment expense.`,
                 bg: "#e8dbcd",
-                adType: "none"
+                adType: "none",
+                image: "https://upload.wikimedia.org/wikipedia/commons/3/36/Casino_Roulette_Wheel_%28Cropped%29.jpg" // Placeholder for traditional gambling
             },
             {
                 title: "GAMBLING ADVERTISEMENTS AND NORMALIZATION",
-                content: "Regulatory shifts have allowed betting ads to completely saturate mainstream media. Fans and children cannot watch a game without seeing odds crawl across the screen, logos stamped on team jerseys, or celebrity endorsements painting predatory financial mechanics as a casual, glamorous lifestyle hobby.",
+                content: `Regulatory shifts have allowed betting ads to <span style="color: #00ffcc; font-weight: bold;">completely saturate</span> mainstream media. Fans and children cannot watch a game without seeing odds crawl across the screen, logos stamped on team jerseys, or celebrity endorsements painting predatory financial mechanics as a casual, glamorous lifestyle hobby.`,
                 bg: "#0b0c10",
-                adType: "ads"
+                adType: "ads",
+                image: "" // No specific image needed here, ads handle the visuals
             },
             {
                 title: "THE RISE OF YOUTH GAMBLING",
-                content: "Underage gambling exposure has skyrocketed due to the gamification of modern video games. Mechanisms like 'loot boxes' mimic slot machine pathways, pushing mystery item rewards for cash. Studies consistently show that adolescent engagement with these monetization systems strongly predicts problem gambling habits in adulthood.",
+                content: `Underage gambling exposure has skyrocketed due to the gamification of modern video games. Mechanisms like <span style="color: #ee7752; font-weight: bold;">'loot boxes'</span> mimic slot machine pathways, pushing mystery item rewards for cash. Studies consistently show that adolescent engagement with these monetization systems strongly predicts <span style="color: #ffc30f; font-weight: bold;">problem gambling habits</span> in adulthood.`,
                 bg: "#252839",
-                adType: "none"
+                adType: "none",
+                image: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Gamer_at_Keyboard.jpg" // Placeholder for youth gaming
             },
             {
                 title: "THE ADDICTIVENESS OF GAMBLING",
-                content: "Gambling hijacks the brain's reward pathway using 'near misses.' Neuroimaging reveals that losing a bet by a hair triggers a massive surge of dopamine almost identical to a win, tricking the brain into feeling that success is imminent. This couples with an 'illusion of control,' where users falsely believe their analytical skill overrides raw probability.",
+                content: `Gambling hijacks the brain's reward pathway using <span style="color: #ff1100; font-weight: bold;">'near misses.'</span> Neuroimaging reveals that losing a bet by a hair triggers a massive surge of dopamine almost identical to a win, tricking the brain into feeling that success is imminent. This couples with an <span style="color: #ffc30f; font-weight: bold;">'illusion of control,'</span> where users falsely believe their analytical skill overrides raw probability.`,
                 bg: "#e4f1fe",
-                adType: "none"
+                adType: "none",
+                image: "" // Clear view needed here
             },
             {
                 title: "HOW TO HELP",
-                content: "Combating problem gambling requires structural friction and support networks. Utilizing self-exclusion registries, installing app-blocking software, and addressing underlying mental health prompts are vital steps. If you or someone you know is struggling, reaching out to local, confidential helplines provides an immediate path forward.",
+                content: `Combating problem gambling requires structural friction and support networks. Utilizing <span style="color: #23a6d5; font-weight: bold;">self-exclusion registries</span>, installing app-blocking software, and addressing underlying mental health prompts are vital steps. If you or someone you know is struggling, reaching out to local, confidential helplines provides an immediate path forward.`,
                 bg: "#e4f1fe",
-                adType: "none"
+                adType: "none",
+                image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Supporting_Hands.jpg" // Placeholder for support/help
             }
         ];
 
